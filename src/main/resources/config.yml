@@ -1,0 +1,22 @@
+no-permissions: "&cNo Permissions"
+
+regions:
+  inventory:
+    title: "&aRegions Inventory"
+    size: 54
+
+command:
+  usage:
+    - ""
+    - "&c/region &f- Opens the regions menu"
+    - "&c/region create <name> &f- Creates a region at the selected location"
+    - "&c/region wand &f- Gives the user a stick with a custom name to select locations to create a region"
+    - "&c/region add &f<name> <username> - Whitelist a user to a region"
+    - "&c/region remove &f<name> <username> - Removes a user from the region whitelist"
+    - "&c/region whitelist &f<name> - Lists the users in the region whitelist"
+    - "&c/region <name> &f- Opens the region menu"
+    - "&c/region flag &f<name> <flag> <state> - Edit a region flag"
+    - ""
+
+region:
+  exists: "&c{region} region already exists."
