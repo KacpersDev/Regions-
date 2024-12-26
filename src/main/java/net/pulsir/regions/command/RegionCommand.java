@@ -5,6 +5,7 @@ import net.pulsir.regions.region.Region;
 import net.pulsir.regions.region.claim.RegionClaim;
 import net.pulsir.regions.utils.color.Color;
 import net.pulsir.regions.utils.inventory.InventoryType;
+import net.pulsir.regions.utils.items.Items;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -67,6 +68,7 @@ public class RegionCommand implements CommandExecutor, TabCompleter {
                 return false;
             }
 
+            player.getInventory().addItem(Items.wand());
             Regions.getInstance().getRegionClaimManager().getClaims().put(player.getUniqueId(),
                     new RegionClaim(null, null, null));
             player.sendMessage(Color.translate("&f&m--------------------------------"));
