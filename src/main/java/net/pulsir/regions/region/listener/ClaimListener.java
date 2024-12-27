@@ -1,7 +1,6 @@
 package net.pulsir.regions.region.listener;
 
 import net.pulsir.regions.Regions;
-import net.pulsir.regions.region.claim.RegionClaim;
 import net.pulsir.regions.utils.color.Color;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -27,13 +26,6 @@ public class ClaimListener implements Listener {
                         .setSecondCorner(Objects.requireNonNull(event.getClickedBlock()).getLocation());
 
                 event.getPlayer().sendMessage(Color.translate("&aSuccessfully selected second corner at " + event.getClickedBlock().getLocation()));
-            }
-        } else if (event.getAction().equals(Action.LEFT_CLICK_AIR)) {
-            RegionClaim regionClaim = Regions.getInstance().getRegionClaimManager().getClaims().get(event.getPlayer().getUniqueId());
-            if (regionClaim != null) {
-                if (regionClaim.isClaimable()) {
-                    regionClaim.claim();
-                }
             }
         }
     }

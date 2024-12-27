@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import net.pulsir.regions.region.flag.RegionFlags;
 import net.pulsir.regions.region.state.FlagState;
+import net.pulsir.regions.utils.cuboid.Cuboid;
 import org.bukkit.Location;
 
 import java.util.Map;
@@ -24,5 +25,9 @@ public class Region {
         this.cuboidLocations = cuboidLocations;
         this.whitelistedPlayers = whitelistedPlayers;
         this.regionFlags = regionFlags;
+    }
+
+    public Cuboid getCuboid() {
+        return new Cuboid(cuboidLocations[0], cuboidLocations[1]);
     }
 }

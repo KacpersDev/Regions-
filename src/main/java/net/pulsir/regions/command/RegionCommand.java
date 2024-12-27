@@ -3,9 +3,13 @@ package net.pulsir.regions.command;
 import net.pulsir.regions.Regions;
 import net.pulsir.regions.region.Region;
 import net.pulsir.regions.region.claim.RegionClaim;
+import net.pulsir.regions.region.flag.RegionFlags;
+import net.pulsir.regions.region.state.FlagState;
 import net.pulsir.regions.utils.color.Color;
 import net.pulsir.regions.utils.inventory.InventoryType;
 import net.pulsir.regions.utils.items.Items;
+import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -78,15 +82,84 @@ public class RegionCommand implements CommandExecutor, TabCompleter {
             player.sendMessage(Color.translate("&cDrop wand in order to cancel claiming."));
             player.sendMessage(Color.translate("&f&m--------------------------------"));
         } else if (args[0].equalsIgnoreCase("add")) {
+            if (args.length == 1) {
+                usage(sender);
+            } else {
+                String regionName = args[1];
 
+                if (!Regions.getInstance().getRegionManager().hasName(regionName)) {
+                    sender.sendMessage(Color.translate("&aRegion does not exists!"));
+                    return false;
+                }
+
+                if (args.length == 2) {
+                    usage(sender);
+                } else {
+                    OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(args[2]);
+
+                    Regions.getInstance().getRegionManager().getRegion(regionName).getWhitelistedPlayers().add(offlinePlayer.getUniqueId());
+                    sender.sendMessage(Color.translate("&aSuccessfully added player to whitelist of region."));
+                }
+            }
         } else if (args[0].equalsIgnoreCase("remove")) {
+            if (args.length == 1) {
+                usage(sender);
+            } else {
+                String regionName = args[1];
 
+                if (!Regions.getInstance().getRegionManager().hasName(regionName)) {
+                    sender.sendMessage(Color.translate("&aRegion does not exists!"));
+                    return false;
+                }
+
+                if (args.length == 2) {
+                    usage(sender);
+                } else {
+                    OfflinePlayer player = Bukkit.getOfflinePlayer(args[2]);
+
+                    Regions.getInstance().getRegionManager().getRegion(regionName).getWhitelistedPlayers().remove(player.getUniqueId());
+                    sender.sendMessage(Color.translate("&aSuccessfully added player to whitelist of region."));
+                }
+            }
         } else if (args[0].equalsIgnoreCase("whitelist")) {
+            if (args.length == 1) {
+                usage(sender);
+            } else {
+                String regionName = args[1];
 
+                if (!Regions.getInstance().getRegionManager().hasName(regionName)) {
+                    sender.sendMessage(Color.translate("&aRegion does not exists!"));
+                    return false;
+                }
+
+                for (final UUID uuid : Regions.getInstance().getRegionManager().getRegion(regionName).getWhitelistedPlayers()) {
+                    OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(uuid);
+
+                    sender.sendMessage(Color.translate("&aPlayer: &f" + offlinePlayer.getName()));
+                }
+            }
         } else if (args[0].equalsIgnoreCase("flag")) {
+            if (args.length == 1) {
+                usage(sender);
+            } else {
+                String regionName = args[1];
 
-        } else {
+                if (args.length == 2) {
+                    usage(sender);
+                } else {
+                    RegionFlags regionFlags = RegionFlags.valueOf(args[2]);
 
+                    if (args.length == 3) {
+                        usage(sender);
+                    } else {
+                        FlagState flagState = FlagState.valueOf(args[3]);
+
+                        Regions.getInstance().getRegionManager().getRegion(regionName)
+                                .getRegionFlags().replace(regionFlags, flagState);
+                        sender.sendMessage(Color.translate("&aSuccessfully added flag."));
+                    }
+                }
+            }
         }
 
         return true;

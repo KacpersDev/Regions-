@@ -2,7 +2,6 @@ package net.pulsir.regions.region.claim;
 
 import lombok.Getter;
 import lombok.Setter;
-import net.pulsir.regions.Regions;
 import org.bukkit.Location;
 
 @Getter
@@ -21,11 +20,7 @@ public class RegionClaim {
     }
 
     public boolean isClaimable() {
-        return false;
-    }
-
-    public void claim() {
-
+        return firstCorner != null && secondCorner != null;
     }
 
     public Location[] toLocations() {
