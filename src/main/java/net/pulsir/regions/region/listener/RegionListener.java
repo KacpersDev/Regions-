@@ -12,6 +12,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
 public class RegionListener implements Listener {
@@ -73,6 +74,23 @@ public class RegionListener implements Listener {
                 event.setCancelled(true);
             } else if (flagState.equals(FlagState.WHITELIST) && !event.getEntity().hasPermission("region.bypass")
                     && !region.getWhitelistedPlayers().contains(event.getEntity().getUniqueId())) {
+                event.setCancelled(true);
+            }
+        }
+    }
+
+    @EventHandler
+    public void onInteract(PlayerInteractEvent event) {
+        Region region = Regions.getInstance().getRegionManager().getRegionByLocation(event.getPlayer().getLocation());
+        if (region == null || region.getRegionFlags().isEmpty()) return;
+
+        if (region.getRegionFlags().containsKey(RegionFlags.BLOCK_PLACE)) {
+            FlagState flagState = region.getRegionFlags().get(RegionFlags.BLOCK_PLACE);
+
+            if (flagState.equals(FlagState.NONE) && !event.getPlayer().hasPermission("region.bypass")) {
+                event.setCancelled(true);
+            } else if (flagState.equals(FlagState.WHITELIST) && !event.getPlayer().hasPermission("region.bypass")
+                    && !region.getWhitelistedPlayers().contains(event.getPlayer().getUniqueId())) {
                 event.setCancelled(true);
             }
         }

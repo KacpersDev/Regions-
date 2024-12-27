@@ -8,6 +8,7 @@ import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.persistence.PersistentDataType;
 
 public class RegionsInventory implements IInventory {
 
@@ -29,6 +30,7 @@ public class RegionsInventory implements IInventory {
         for (Region region : Regions.getInstance().getRegionManager().getRegions()) {
             ItemStack itemStack = new ItemStack(Material.PAPER);
             ItemMeta itemMeta = itemStack.getItemMeta();
+            itemMeta.getPersistentDataContainer().set(Regions.getInstance().getRegionKey(), PersistentDataType.STRING, region.getName());
             itemMeta.setDisplayName(Color.translate(region.getName() + " &a's Region"));
             itemStack.setItemMeta(itemMeta);
             itemStacks[i] = itemStack;

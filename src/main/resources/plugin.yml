@@ -2,3 +2,5 @@ name: Regions
 version: '1.0-SNAPSHOT'
 main: net.pulsir.regions.Regions
 api-version: '1.21'
+commands:
+  region:

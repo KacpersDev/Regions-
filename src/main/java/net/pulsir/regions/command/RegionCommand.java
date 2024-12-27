@@ -47,7 +47,7 @@ public class RegionCommand implements CommandExecutor, TabCompleter {
 
                 if (Regions.getInstance().getRegionManager().hasName(regionName)) {
                     sender.sendMessage(Objects.requireNonNull(Objects.requireNonNull(Regions.getInstance().getConfig().getString("region.exists"))
-                            .replace("{exists}", regionName)));
+                            .replace("{region}", regionName)));
                     return false;
                 }
 

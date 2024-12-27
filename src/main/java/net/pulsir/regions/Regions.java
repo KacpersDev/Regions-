@@ -8,6 +8,7 @@ import net.pulsir.regions.region.listener.RegionListener;
 import net.pulsir.regions.region.manager.RegionManager;
 import net.pulsir.regions.utils.inventory.manager.InventoryManager;
 import org.bukkit.Bukkit;
+import org.bukkit.NamespacedKey;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Objects;
@@ -21,6 +22,8 @@ public final class Regions extends JavaPlugin {
     private RegionManager regionManager;
     private InventoryManager inventoryManager;
     private RegionClaimManager regionClaimManager;
+
+    private final NamespacedKey regionKey = new NamespacedKey(this, "regions");
 
     @Override
     public void onEnable() {
