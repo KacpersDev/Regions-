@@ -61,6 +61,7 @@ public class RegionCommand implements CommandExecutor, TabCompleter {
                     return false;
                 }
 
+                Regions.getInstance().getRegionClaimManager().getClaims().remove(player.getUniqueId());
                 Regions.getInstance().getRegionManager().getRegions().add(new Region(regionName,
                         Regions.getInstance().getRegionClaimManager().getClaims().get(player.getUniqueId()).toLocations(), new HashSet<>(), new HashMap<>()));
                 player.sendMessage(Color.translate("&aSuccessfully created region."));

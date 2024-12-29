@@ -30,4 +30,36 @@ public class Region {
     public Cuboid getCuboid() {
         return new Cuboid(cuboidLocations[0], cuboidLocations[1]);
     }
+
+    public String databaseWhitelistedPlayers() {
+        String string = "";
+
+        for (UUID uuid : whitelistedPlayers) {
+            if (string.isEmpty()) {
+                string = uuid.toString();
+            } else {
+                string = string + ":" + uuid.toString();
+            }
+        }
+
+        return string;
+    }
+
+    public String databaseRegionFlags() {
+        String string = "";
+
+        for (RegionFlags flag : regionFlags.keySet()) {
+            if (string.isEmpty()) {
+                string = flag + ":" + regionFlags.get(flag);
+            } else {
+                string = string + "," + flag + ":" + regionFlags.get(flag);
+            }
+        }
+
+        return string;
+    }
+
+    public String databaseLocation(Location location) {
+        return null;
+    }
 }
